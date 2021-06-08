@@ -47,7 +47,7 @@ class DetailCourseActivity : AppCompatActivity() {
         val adapter = DetailCourseAdapter()
 
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null){
@@ -109,9 +109,6 @@ class DetailCourseActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
-
-        val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
 
         viewModel.courseModule.observe(this, { courseWithModule ->
             if (courseWithModule != null){
