@@ -45,7 +45,7 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener{
         viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
 
-        viewModel.modules.observe(this, { moduleEntities ->
+        viewModel.modules.observe(viewLifecycleOwner, { moduleEntities ->
             if (moduleEntities != null){
                 when (moduleEntities.status){
                     Status.LOADING -> fragmentModuleListBinding?.progressBar?.visibility = View.VISIBLE

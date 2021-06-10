@@ -34,9 +34,9 @@ class ModuleContentFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         if (activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
 
-            viewModel.selectedModule.observe(this, { moduleEntity ->
+            viewModel.selectedModule.observe(viewLifecycleOwner, { moduleEntity ->
                 if (moduleEntity != null){
                     when (moduleEntity.status){
                         Status.LOADING -> fragmentModuleContentBinding?.progressBar?.visibility = View.VISIBLE
@@ -55,6 +55,9 @@ class ModuleContentFragment : Fragment(){
                             Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                         }
                     }
+
+                    fragmentModuleContentBinding?.btnNext.setOnClickListener { viewModel.setNextPage() }
+                    fragmentModuleContentBinding?.btnPrev.setOnClickListener { viewModel.setPrevPage() }
                 }
             })
         }
