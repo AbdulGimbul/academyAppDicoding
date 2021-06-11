@@ -1,6 +1,7 @@
 package com.example.abdl.academy.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.example.abdl.academy.data.source.local.entity.CourseEntity
 import com.example.abdl.academy.data.source.local.entity.CourseWithModule
 import com.example.abdl.academy.data.source.local.entity.ModuleEntity
@@ -14,9 +15,9 @@ class LocalDataSource private constructor(private val mAcademyDao: AcademyDao){
             INSTANCE ?: LocalDataSource(academyDao)
     }
 
-    fun getAllCourses(): LiveData<List<CourseEntity>> = mAcademyDao.getCourses()
+    fun getAllCourses(): DataSource.Factory<Int, CourseEntity> = mAcademyDao.getCourses()
 
-    fun getBookmarkedCourse(): LiveData<List<CourseEntity>> = mAcademyDao.getBookmarkedCourse()
+    fun getBookmarkedCourse(): DataSource.Factory<Int, CourseEntity> = mAcademyDao.getBookmarkedCourse()
 
     fun getCourseWithModules(courseId: String): LiveData<CourseWithModule> =
         mAcademyDao.getCourseWithModuleById(courseId)
